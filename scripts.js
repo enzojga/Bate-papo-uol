@@ -1,13 +1,14 @@
 const lista = document.querySelector('.menssagens');
-let  usuario;
+let  usuario = '';
 let menssagens =[];
 const elementoQueQueroQueApareca = document.querySelector('.teste');
+let userName= {
+    name: '',
+}
 
 function reqAxios(){
-    lista.innerHTML = ""
     let promessa = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
     promessa.then(trataSucesso);
-    console.log('estou requisitando');
 }
 
 function verificaTipo(menssagens){
@@ -25,8 +26,9 @@ function verificaTipo(menssagens){
 }
 
 function trataSucesso(promessa){
-
     const data = promessa.data;
+    menssagens = [];
+    lista.innerHTML = menssagens;
     for(let i = 0; i < data.length;i++){
         let msgInfo = {
             from: data[i].from,
@@ -36,7 +38,6 @@ function trataSucesso(promessa){
             time: data[i].time,
         }
         menssagens.push(msgInfo);
-        console.log(menssagens[i]);
         const li = verificaTipo(menssagens[i]);
         lista.innerHTML = lista.innerHTML + li;
     }
@@ -47,29 +48,37 @@ function trataSucesso(promessa){
 function enviaMsg(){
     let msg = document.querySelector('.menssagem').value;
     const li = `<li class="menssagemPublica"><strong>${usuario}</strong> <p>para</p> <strong>Todos:</strong><p>${msg}</p></li>`
-    lista.innerHTML = lista.innerHTML + li;
     let objMsg = {
         from: usuario,
         to: "Todos",
         text: msg,
         type: "message"
     }
+    console.log(objMsg);
     let promessaMsg = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages',objMsg);
     promessaMsg.then(trataMsg);
-    elementoQueQueroQueApareca.scrollIntoView();
+    promessaMsg.catch(trataErroMsg);
+    msg = '';
 }
 
 function getUsuario(){
-    usuario = prompt('Insira seu nome');
-    let userName={
+    if (usuario === ''){
+        usuario = prompt('Insira seu nome');
+    }
+    userName={
         name: usuario,
     }
     let post = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants',userName);
     post.then(trataPost);
     post.catch(trataErrorPost);
 }
+function mantemConexão(){
+    let conexao = axios.post('https://mock-api.driven.com.br/api/v6/uol/status',userName);
+    conexao.then(trataPost);
+}
 function trataPost(post){
     console.log(post);
+    reqAxios();
 }
 
 function trataErrorPost(error){
@@ -81,13 +90,16 @@ function trataErrorPost(error){
 }
 function trataMsg(menssagem){
     console.log(menssagem);
+    reqAxios();
 }
 function trataErroMsg(erro){
-    const codigoErro = error.response.status;
+    const codigoErro = erro.response.status;
     console.log('erro ao enviar');
+    console.log(codigoErro);
 }
 
 
 getUsuario();
-reqAxios()
+reqAxios();
 setInterval(reqAxios,3000);
+setInterval(mantemConexão,3000);

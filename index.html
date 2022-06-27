@@ -8,16 +8,29 @@
     <title>Bate papo uol</title>
 </head>
 <body>
-    <div class="sidebar escondido" onclick="mostraSidebar(this)">
+    <div class="telaInicial">
+        <div>
+            <img src="imagens/logo 1.png" alt="">
+            <input class="menssagem" type="text" id="fname" name="fname" placeholder="Digite seu nome">
+            <button onclick="getUsuario()">Entrar</button>
+        </div>
+        <div class="escondido">
+            <img src="imagens/logo 1.png" alt="">
+            <div class="loader"></div>
+            <h1>Entrando...</h1>
+        </div>
+    </div>
+    <div class="sidebar escondido">
+        <div class="escuro" onclick="mostraSidebar(this)"></div>
         <div class="participantes">
             <h1>Escolha um contato para enviar mensagem: </h1>
             <ul class="listaParticipantes">
-                <li onclick="selecionaPv(this)"><ion-icon name="people"></ion-icon><p>Todos</p></li>
+                <li onclick="selecionaPv(this)"><ion-icon name="people"></ion-icon><p>Todos</p><ion-icon name="checkmark-outline" class="seloOk"></ion-icon></li>
             </ul>
             <h1>Escolha a visibilidade:</h1>
-            <ul>
-                <li onclick="selecionaPv(this)"><ion-icon name="lock-closed"></ion-icon><p>Publico</p></li>
-                <li onclick="selecionaPv(this)"><ion-icon name="lock-open"></ion-icon><p>Reservado</p></li>
+            <ul class="visibilidade">
+                <li data-identifier="visibility" onclick="selecionaTipo(this)"><ion-icon name="lock-closed"></ion-icon><p>Publico</p><ion-icon name="checkmark-outline" class="seloOkB"></ion-icon></li>
+                <li data-identifier="visibility" onclick="selecionaTipo(this)"><ion-icon name="lock-open"></ion-icon><p>Reservado</p><ion-icon name="checkmark-outline" class="seloOk"></ion-icon></li>
             </ul>
         </div>
     </div>
@@ -31,8 +44,11 @@
         <div class="teste"></div>
     </div>
     <div class="barraInf">
-        <input class="menssagem" type="text" id="fname" name="fname" placeholder="Escreva aqui...">
-        <ion-icon name="paper-plane-outline" onclick="enviaMsg()"></ion-icon>
+            <div>
+                <input class="menssagem" type="text" id="fname" name="fname" placeholder="Escreva aqui...">
+                <h3 class="escondido"></h3>
+            </div>
+            <ion-icon name="paper-plane-outline" onclick="enviaMsg()"></ion-icon>
     </div>
 
     
@@ -42,3 +58,5 @@
     <script src="scripts.js"></script>
 </body>
 </html>
+
+

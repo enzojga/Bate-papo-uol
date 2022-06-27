@@ -8,9 +8,22 @@
     <title>Bate papo uol</title>
 </head>
 <body>
+    <div class="sidebar escondido" onclick="mostraSidebar(this)">
+        <div class="participantes">
+            <h1>Escolha um contato para enviar mensagem: </h1>
+            <ul class="listaParticipantes">
+                <li onclick="selecionaPv(this)"><ion-icon name="people"></ion-icon><p>Todos</p></li>
+            </ul>
+            <h1>Escolha a visibilidade:</h1>
+            <ul>
+                <li onclick="selecionaPv(this)"><ion-icon name="lock-closed"></ion-icon><p>Publico</p></li>
+                <li onclick="selecionaPv(this)"><ion-icon name="lock-open"></ion-icon><p>Reservado</p></li>
+            </ul>
+        </div>
+    </div>
     <div class="barraTopo">
         <img src="imagens/logo 1.png" alt="">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon name="people" onclick="mostraSidebar(this)"></ion-icon>
     </div>
     <div class="conteudo">
         <ul class="menssagens">
@@ -27,6 +40,5 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="scripts.js"></script>
-</div>
 </body>
 </html>

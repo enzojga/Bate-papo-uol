@@ -148,6 +148,7 @@ li strong{
 }
 .barraInf input::placeholder{
     color: black;
+    font-weight: 400;
     font-style: italic;
 }
 .teste{
